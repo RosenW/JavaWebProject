@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <title>Meme</title>
+</head>
+<body>
+<nav th:replace="navbar"></nav>
+<div class="container">
+    <div class="row">
+        <div class="col-12 offset-3">
+            <th:block>
+                <div class="card col-6 thumbnail">
+                    <div class="card-block">
+                        <h4 class="card-title" th:text="${meme.getTitle()}"></h4>
+                    </div>
+
+                    <img class="card-image-top img-fluid img-thumbnail"
+                         th:src="${meme.getMeme()}">
+
+                    <div class="card-footer">
+                        <a name="points" th:text="|Points: ${meme.getPoints()}|"
+                           th:id="|pointsLabel-${meme.getId()}|"></a>
+                    </div>
+                </div>
+            </th:block>
+            <form method="post" th:object="${commentModel}" style="margin-top: 15px">
+                <input type="text" class="form-control col-6" th:field="*{content}"
+                       placeholder="Submit a comment..."/>
+                <input type="submit" class="btn btn-muted bg-info col-6" value="Submit" style="margin-top: 15px"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            </form>
+        </div>
+        <div class="col-12" style="margin-top: 15px">
+            <div th:each="comment : ${comments}">
+                <p th:if="${comment.getMemeId()}==${meme.getId()}" th:text="|${comment.getTrimmedUserName()}: ${comment.getContent()}|"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script th:src="@{/jquery/jquery.min.js}" rel="stylesheet"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}" rel="stylesheet"></script>
+</body>
+</html>

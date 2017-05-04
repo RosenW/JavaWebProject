@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <title>My Memes</title>
+</head>
+<body>
+<header th:include="navbar"></header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 offset-3">
+            <th:block>
+                <div th:each="meme : ${memes}">
+                    <div class="card col-6 thumbnail">
+                        <div class="card-block">
+                            <h4 class="card-title" th:text="${meme.getTitle()}"></h4>
+                        </div>
+
+                        <img class="card-image-top img-fluid img-thumbnail"
+                             th:src="${meme.getMeme()}">
+
+                        <div class="card-footer">
+                            <a name="points" th:text="|Points: ${meme.getPoints()}|"
+                               th:id="|pointsLabel-${meme.id}|"></a>
+                            <a name="category" th:text="|(${meme.getType()})|"></a>
+                            <a th:if="${#request.getUserPrincipal() != null}" style="float: right"
+                               class="card-button btn btn-danger dislikeButton" name="dislike" th:text="Dislike"
+                               th:attr="data-id=${meme.getId()}" href=""></a>
+                            <a th:if="${#request.getUserPrincipal() != null}" style="float: right;margin-right:5px"
+                               class="card-button btn btn-info likeButton" name="like" th:text="Like"
+                               th:attr="data-id=${meme.getId()}" href=""></a>
+                            <a th:if="${#request.getUserPrincipal() != null}" style="float: right;margin-right:5px"
+                               class="card-button btn btn-info" name="comment" th:text="Comment" th:href="|/meme/comments/${meme.getId()}|"></a>
+
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<script th:src="@{/jquery/jquery.min.js}" rel="stylesheet"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}" rel="stylesheet"></script>
+<script th:src="@{/like.js}"></script>
+</body>
+</html>

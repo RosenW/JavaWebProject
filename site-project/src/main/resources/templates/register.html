@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="navbar"></nav>
+<form method="post" th:object="${registerUserModel}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+        <br/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>Register</h1>
+            </div>
+            <div class="form-control-feedback" th:each="error : ${#fields.errors('email')}" th:text="${error}">user already registered</div>
+            <div class="form-control-feedback" th:each="error : ${#fields.errors('password')}" th:text="${error}">password is too short</div>
+            <div class="form-control-feedback" th:each="error : ${#fields.errors('global')}" th:text="${error}">Passwords are not matching</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="input-group">
+                                <span class="input-group-addon bg-info">
+                                    <i class="glyphicon glyphicon-user" style="width: auto"></i>
+                                </span>
+                        <input id="txtUsername" type="email" class="form-control" th:field="*{email}"
+                               placeholder="Email" required=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                                <span class="input-group-addon bg-info">
+                                    <i class="glyphicon glyphicon-lock" style="width: auto"></i>
+                                </span>
+                        <input id="txtPass" type="password" class="form-control" th:field="*{password}"
+                               placeholder="Password" required=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                                <span class="input-group-addon bg-info">
+                                    <i class="glyphicon glyphicon-lock" style="width: auto"></i>
+                                </span>
+                        <input id="txtConfirmPass" type="password" class="form-control" th:field="*{confirmPassword}"
+                               placeholder="Repeat Password" required=""/>
+                    </div>
+                </div>
+                <input id="btnLogin" type="submit" class="btn btn-muted bg-info" style="width: 100%" value="Register"/>
+            </div>
+        </div>
+    </div>
+</form>
+<script th:src="@{/jquery/jquery.min.js}" rel="stylesheet"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}" rel="stylesheet"></script>
+</body>
+</html>

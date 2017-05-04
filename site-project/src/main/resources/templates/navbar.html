@@ -1,0 +1,35 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.w3.org/1999/xhtml">
+<nav class="navbar navbar-toggleable-md navbar-light bg-info">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand mr-auto" href="/">Dank Memes</a>
+            <ul th:if="${#request.getUserPrincipal() == null}" class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+            </ul>
+            <ul th:if="${#request.getUserPrincipal() != null}" class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-memes">My memes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/meme/add">Add meme</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
